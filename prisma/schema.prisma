@@ -10,7 +10,7 @@ datasource db {
 }
 
 model Car {
-  chassi   String   @unique
+  chassi   String   @id
   name   String
   brand   String
   available   Boolean   @default(true)
