@@ -1,4 +1,4 @@
-import { Rental } from "../entities/Rental";
+import { Rental } from "../entities/Rental.js";
 
 export interface IRentalRepo{
     criar(rental: Rental): Promise<void>;

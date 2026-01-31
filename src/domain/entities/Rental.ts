@@ -1,9 +1,10 @@
 export class Rental{
-  id: string;
+  id?: string;
   Car_id: string;
   User_id: string;
   DataI: Date;
-  DataF: Date;
+  DataE?: Date;
+  DataF?: Date;
 
   constructor(id: string, Car_id: string, User_id: string, DataF: Date){
     this.id = id;
