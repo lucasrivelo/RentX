@@ -13,7 +13,7 @@ export class PrismaRentalRepository implements IRentalRepo {
         User_id: rental.User_id,
         Car_id: rental.Car_id,
         DataI: rental.DataI || new Date(),
-        DataE: null,
+        DataE: rental.DataE,
         DataF: rental.DataF ?? null,
       },
     });
