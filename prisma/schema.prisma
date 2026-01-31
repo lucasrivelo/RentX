@@ -24,7 +24,7 @@ model Rental {
   User_id   String
   Car_id   String
   DataI   DateTime  @default(now())
-  DataE   DateTime?
+  DataE   DateTime
   DataF   DateTime?
   car   Car   @relation(fields: [Car_id], references: [chassi])
 
