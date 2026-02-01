@@ -6,7 +6,7 @@ export class Rental{
   DataE: Date;
   DataF?: Date;
 
-  constructor(id: string, Car_id: string, User_id: string, DataE: Date){
+  constructor(id: string = Math.random().toString(36).replace('.', ''), Car_id: string, User_id: string, DataE: Date){
     this.id = id;
     this.Car_id = Car_id;
     this.User_id = User_id;
