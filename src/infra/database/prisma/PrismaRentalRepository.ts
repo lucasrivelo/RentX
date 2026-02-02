@@ -26,41 +26,24 @@ export class PrismaRentalRepository implements IRentalRepo {
   }
 
   async buscaCarId(Car_id: string): Promise<Rental[]> {
-  const rentals = await this.prisma.rental.findMany({ 
-    where: { Car_id },
-    orderBy: {
-      DataI: 'desc'
-    }
-  });
-
-  return rentals as unknown as Rental[];
-}
-
-  async listarPorUser(User_id: string): Promise<Rental[]> {
-    const rentals = await this.prisma.rental.findMany({
-      where: { User_id },
+    const rentals = await this.prisma.rental.findMany({ 
+      where: { Car_id },
+      orderBy: {
+        DataI: 'desc'
+      }
     });
-    return rentals as unknown as Rental[];
-  }
 
-  async listarPorData(DataI: Date, DataF: Date): Promise<Rental[]> {
-    const rentals = await this.prisma.rental.findMany({
-      where: {
-        DataI: { gte: DataI },
-        DataF: { lte: DataF },
-      },
-    });
     return rentals as unknown as Rental[];
   }
 
   async listarAluguelDisponivel(User_id: string): Promise<Rental | null> {
-  const abrirRental = await this.prisma.rental.findFirst({
-    where: {
-      User_id: User_id,
-      DataF: null
-    }
-  });
+    const abrirRental = await this.prisma.rental.findFirst({
+      where: {
+        User_id: User_id,
+        DataF: null
+      }
+    });
 
-  return abrirRental as any; 
-}
+    return abrirRental as any; 
+  }
 }

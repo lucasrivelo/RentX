@@ -4,7 +4,7 @@ export class Car{
     brand: string;
     available: boolean;
 
-    constructor(chassi: string, nome: string, marca: string){
+    constructor(chassi: string = Math.random().toString(36).replace('.', ''), nome: string, marca: string){
         this.chassi = chassi;
         this.name = nome;
         this.brand = marca;

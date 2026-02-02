@@ -16,7 +16,9 @@ export class CreateRentalUseCase {
     const verificaCar = await this.carRepo.buscaId(Car_id);
     if (!verificaCar) throw new Error("Carro não encontrado.");
 
-    const verificarAluguel = await this.rentalRepo.buscaCarId(User_id);
+    if (!verificaCar.available) throw new Error("Este carro já está alugado por outra pessoa.");
+
+    const verificarAluguel = await this.rentalRepo.listarAluguelDisponivel(User_id);
     if (verificarAluguel) {
       throw new Error("Usuário já possui um aluguel em andamento.");
     }
@@ -24,6 +26,7 @@ export class CreateRentalUseCase {
     const rental = new Rental(undefined, Car_id, User_id, DataE);
 
     await this.rentalRepo.criar(rental);
+    await this.carRepo.updateDisponivel(Car_id, false);
 
     return rental;
   }
