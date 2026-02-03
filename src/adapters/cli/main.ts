@@ -1,32 +1,47 @@
 import "reflect-metadata";
-import { container } from "../../infra/container/index.js"; // Seu container Inversify
+import "dotenv/config";
+import { container } from "../../infra/container/index.js";
 import { CreateRentalUseCase } from "../../application/useCases/createRental/CreateRentalUseCase.js";
 import type { CreateRentalDTO } from "../../application/useCases/createRental/CreateRentalDTO.js";
 
-export class CreateRentalCLI {
-  async run() {
-    const createRentalUseCase = container.get<CreateRentalUseCase>(CreateRentalUseCase);
+const createRentalUseCase = container.get<CreateRentalUseCase>(CreateRentalUseCase);
 
-    const input: CreateRentalDTO = {
-      Car_id: "teste_idcarro",
-      User_id: "teste_iduser",
-      DataE: new Date("2026-06-01T10:00:00Z")
-    };
+async function AddAluguel(info: string[]){
+    
+    const [carId, userId, dataE] = info;
 
-    try {
-      console.log("Tentando criar aluguel...");
-      
-      const rental = await createRentalUseCase.execute(input);
-
-      console.log(" Sucesso ao criar aluguel.");
-      console.log(rental);
-      
-    } catch (error: any) {
-
-      console.log("Erro ao criar aluguel.", error.message);
+    if (!carId || !userId || !dataE){
+        throw new Error("Padrão de Uso: adicionar_aluguel Carro User Data");
     }
-  }
+
+    try{
+        const input: CreateRentalDTO = {
+        Car_id: carId,
+        User_id: userId,
+        DataE: new Date(dataE)
+        };
+
+        const CDU = await createRentalUseCase.execute(input);
+
+        console.log(`\n Aluguel agendado com sucesso!`);
+        console.log(`ID: ${CDU.id} | Usuário: ${CDU.User_id} | Carro: ${CDU.Car_id} | Entrega Estimada: ${CDU.DataE.toLocaleString('pt-BR')}`);
+
+    } catch(error: any){
+        console.log(`Erro ao agendar`);
+    }
 }
 
-const cli = new CreateRentalCLI();
-cli.run();
+async function run(){
+    const linha = process.argv.slice(2);
+    const command = linha[0];
+
+    if (command === 'adicionar_aluguel'){
+        await AddAluguel(linha.slice(1));
+    } else{
+        console.log('Comando desconhecido. Use: adicionar_aluguel');
+    }
+}
+
+run().catch((e) => {
+    process.exit(1);
+});
