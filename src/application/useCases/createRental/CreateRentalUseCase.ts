@@ -12,7 +12,7 @@ export class CreateRentalUseCase {
     @inject(TYPES.ICarRepo) private carRepo: ICarRepo
   ) {}
 
-  async casoDeUso({ Car_id, User_id, DataE }: CreateRentalDTO): Promise<Rental> {
+  async execute({ Car_id, User_id, DataE }: CreateRentalDTO): Promise<Rental> {
 
     const verificaCar = await this.carRepo.buscaId(Car_id);
     if (!verificaCar) throw new Error("Carro não encontrado.");

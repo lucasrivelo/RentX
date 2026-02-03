@@ -1,11 +1,14 @@
-import { injectable } from "inversify";
-import { PrismaClient } from "@prisma/client";
+import { inject, injectable } from "inversify";
+import { Prisma, PrismaClient } from "@prisma/client";
 import { Rental } from "../../../domain/entities/Rental.js";
 import type { IRentalRepo } from "../../../domain/repositories/IRentalRepository.js";
+import { TYPES } from "../../container/types.js";
 
 @injectable()
 export class PrismaRentalRepository implements IRentalRepo {
-  private prisma = new PrismaClient();
+  constructor( 
+    @inject(TYPES.PrismaClient) private prisma: PrismaClient
+  ) {}
 
   async criar(rental: Rental): Promise<void> {
     await this.prisma.rental.create({

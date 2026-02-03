@@ -21,7 +21,7 @@ describe("Caso de Uso - Rental", () => {
 
         let amanha = new Date(Date.now()+2*24*60*60*1000);
 
-        let rental = await createRentalUseCase.casoDeUso({
+        let rental = await createRentalUseCase.execute({
             Car_id: car.chassi,
             User_id: "Maria",
             DataE: amanha
@@ -38,7 +38,7 @@ describe("Caso de Uso - Rental", () => {
 
         let amanha = new Date(Date.now()+2*24*60*60*1000);
         await expect(
-        createRentalUseCase.casoDeUso({
+        createRentalUseCase.execute({
             Car_id: car.chassi,
             User_id: "Maria",
             DataE: amanha
@@ -53,14 +53,14 @@ describe("Caso de Uso - Rental", () => {
         await carRepo.criar(car1);
 
         let amanha = new Date(Date.now()+2*24*60*60*1000);
-        await createRentalUseCase.casoDeUso({
+        await createRentalUseCase.execute({
             Car_id: car.chassi,
             User_id: "Maria",
             DataE: amanha
         });
 
         await expect(
-            createRentalUseCase.casoDeUso({
+            createRentalUseCase.execute({
             Car_id: car1.chassi,
             User_id: "Maria",
             DataE: amanha
@@ -72,7 +72,7 @@ describe("Caso de Uso - Rental", () => {
         let amanha = new Date(Date.now()+2*24*60*60*1000);
 
         await expect(
-            createRentalUseCase.casoDeUso({
+            createRentalUseCase.execute({
             Car_id: "soulindo123",
             User_id: "Lucas",
             DataE: amanha
