@@ -40,6 +40,6 @@
     "noUncheckedSideEffectImports": true,
     "experimentalDecorators": true,
     "moduleDetection": "force",
-    "skipLibCheck": true,
+    "skipLibCheck": true
   }
 }

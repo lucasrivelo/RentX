@@ -6,9 +6,9 @@ import { PrismaCarRepository } from "../database/prisma/PrismaCarRepository.js";
 import { PrismaRentalRepository } from "../database/prisma/PrismaRentalRepository.js";
 import { CreateRentalUseCase } from "../../application/useCases/createRental/CreateRentalUseCase.js";
 import { PrismaClient } from "@prisma/client";
+import { prisma } from "../database/prisma/PrismaTransp.js";
 
 const container = new Container();
-const prisma = new PrismaClient();
 
 container.bind<ICarRepo>(TYPES.ICarRepo).to(PrismaCarRepository);
 container.bind<IRentalRepo>(TYPES.IRentalRepo).to(PrismaRentalRepository);
